@@ -42,7 +42,8 @@ function! s:unite_source.gather_candidates(args, context)
     let list = extend(list, split(glob('~/Library/Fonts/*'), "\n"))
     call map(list, "fnamemodify(v:val, ':t:r')")
   elseif has('win32') && executable('fontinfo')
-    let list = split(iconv(system('fontinfo'), 'utf-8', &encoding), "\n")
+    let cmd = exists('g:use_unite_font_filter_win32') ? 'fontinfo ' . g:use_unite_font_filter_win32 : 'fontinfo'
+    let list = split(iconv(system(cmd), 'utf-8', &encoding), "\n")
   elseif executable('fc-list')
     " 'fc-list' for win32 is included 'gtk win32 runtime'.
     " see: http://www.gtk.org/download-windows.html

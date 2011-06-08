@@ -5,6 +5,9 @@
 
 const unsigned char PF_Proportional = 0x01;
 
+bool is_filter_by_charset = false;
+BYTE charset;
+
 using namespace std;
 
 int CALLBACK EnumFontFamExProc(
@@ -14,6 +17,9 @@ int CALLBACK EnumFontFamExProc(
     set<string> *fonts
 ) {
   if (lpntme->ntmTm.tmPitchAndFamily & PF_Proportional)
+    return TRUE;
+
+  if (is_filter_by_charset && lpelfe->elfLogFont.lfCharSet != charset)
     return TRUE;
 
   char name[1000];
@@ -43,6 +49,10 @@ int CALLBACK EnumFontFamExProc(
 }
 
 int main (int argc, char **argv) {
+  if (argc == 2) {
+    is_filter_by_charset = true;
+    charset = atoi(argv[1]);
+  }
   set<string> fonts;
   LOGFONTW lfFont;
   lfFont.lfCharSet = DEFAULT_CHARSET;
@@ -59,6 +69,3 @@ int main (int argc, char **argv) {
   ReleaseDC(0, hdc);
   return 0;
 }
-
-
-
