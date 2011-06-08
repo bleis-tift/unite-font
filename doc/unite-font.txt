@@ -1,0 +1,33 @@
+*unite-font.txt*	A Unite plugin for changing your guifont.
+
+Author: ujihisa
+
+==============================================================================
+INTRODUCTION					*unite-font-introduction*
+
+*unite-font* is a Unite.vim plugin for changing your guifont.
+
+Requirement:
+- unite.vim
+
+Latest version:
+http://github.com/ujihisa/unite-font
+
+
+
+==============================================================================
+CUSTOMIZING					*unite-font-customizing*
+
+g:use_unite_font_filter_win32			*g:use_unite_font_filter_win32*
+	If this variable is exists and you use win32 and fontinfo.exe is
+	executable, *unite-font* uses the value to first fontinfo.exe
+	argument.
+
+	Font list is filterd by first fontinfo.exe argument. This value is one
+	of LOGFONTW.lfCharSet values. For example, 128 means SHIFTJIS_CHARSET.
+
+
+
+
+==============================================================================
+vim:tw=78:fo=tcq2mM:ts=8:ft=help:norl
